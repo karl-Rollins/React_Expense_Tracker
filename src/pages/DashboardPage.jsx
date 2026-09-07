@@ -1,6 +1,7 @@
 import React from "react";
 import "./DashboardPage.css";
 import { useLocalStorage } from "../hooks/useLocalStorage";
+import { formatCurrency } from "../utils/formatCurrency";
 
 export default function DashboardPage() {
   const [transactions] = useLocalStorage("transactions", []);
@@ -33,15 +34,15 @@ export default function DashboardPage() {
       <div className="summary-cards">
         <div className="card income">
           <h3>Total Income</h3>
-          <p>${income.toFixed(2)}</p>
+          <p>{formatCurrency(income)}</p>
         </div>
         <div className="card expenses">
           <h3>Total Expenses</h3>
-          <p>${expenses.toFixed(2)}</p>
+          <p>{formatCurrency(expenses)}</p>
         </div>
         <div className="card balance">
           <h3>Net Balance</h3>
-          <p>${netBalance.toFixed(2)}</p>
+          <p>{formatCurrency(netBalance)}</p>
         </div>
       </div>
 
@@ -64,7 +65,8 @@ export default function DashboardPage() {
               <span>{tx.date}</span>
               <span>{tx.description}</span>
               <span className={tx.type === "income" ? "pos" : "neg"}>
-                {tx.type === "income" ? "+" : "-"}${tx.amount}
+                {tx.type === "income" ? "+" : "-"}
+                {formatCurrency(tx.amount)}
               </span>
             </li>
           ))}
