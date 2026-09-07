@@ -3,15 +3,15 @@ import "./DashboardPage.css";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import { formatCurrency } from "../utils/formatCurrency";
 
-export default function DashboardPage() {
+export default function DashboardPage({selectedMonth}) {
   const [transactions] = useLocalStorage("transactions", []);
   const [budget] = useLocalStorage("budget", 0);
 
   const monthTransactions = transactions.filter((tx) => {
     const date = new Date(tx.date);
     return (
-      date.getMonth() === selectedMonth.getMonth() &&
-      date.getFullYear() === selectedMonth.getFullYear()
+      date.getMonth() === selectedMonth?.getMonth() &&
+      date.getFullYear() === selectedMonth?.getFullYear()
     );
   });
 
