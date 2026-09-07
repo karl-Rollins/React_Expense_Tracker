@@ -1,4 +1,4 @@
-.appShell {
+.app-shell {
   display: flex;
   height: 100vh;
   overflow: hidden;
@@ -12,6 +12,7 @@
   display: flex;
   flex-direction: column;
   padding: 28px 16px;
+  min-height: 100vh;
 }
 
 .brand {
@@ -22,13 +23,13 @@
   letter-spacing: 0.2px;
 }
 
-.nav {
+nav {
   display: flex;
   flex-direction: column;
   gap: 2px;
 }
 
-.navLink {
+.nav-link {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -43,7 +44,7 @@
     color 0.12s ease;
 }
 
-.navLink:hover {
+.nav-link:hover {
   color: var(--text);
   background: rgba(255, 255, 255, 0.03);
 }
@@ -54,7 +55,7 @@
   border-color: var(--border);
 }
 
-.navLink svg {
+.nav-link svg {
   flex-shrink: 0;
 }
 
