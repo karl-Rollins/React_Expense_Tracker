@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { useLocalStorage } from "../hooks/useLocalStorage";
+import { useTransactionsContext } from "../contexts/TransactionsContext";
 import TransactionForm from "../components/transactions/TransactionForm";
-import TransactionList from "../components/transactions/TransactionLIst";
+import TransactionList from "../components/transactions/TransactionList";
 import { categories } from "../data/categories";
 
 export default function TransactionsPage() {
-  const [transactions, setTransactions] = useLocalStorage("transactions", []);
+  const { transactions, addTransaction, updateTransaction, deleteTransaction } =
+    useTransactionsContext();
   const [editing, setEditing] = useState(null);
   const [form, setForm] = useState({
     type: "expense",
@@ -31,18 +32,11 @@ export default function TransactionsPage() {
     e.preventDefault();
     if (!validate()) return;
 
-    const newTx = {
-      id: editing ? editing.id : crypto.randomUUID(),
-      ...form,
-      amount: Number(form.amount),
-      createdAt: Date.now(),
-    };
-
     if (editing) {
-      setTransactions(transactions.map((tx) => (tx.id === editing.id ? newTx : tx)));
+      updateTransaction(editing.id, { ...form, amount: Number(form.amount) });
       setEditing(null);
     } else {
-      setTransactions([...transactions, newTx]);
+      addTransaction({ ...form, amount: Number(form.amount) });
     }
 
     setForm({
@@ -60,22 +54,6 @@ export default function TransactionsPage() {
     setForm({ ...tx });
   };
 
-  const handleDelete = (id) => {
-    if (window.confirm("Delete this transaction?")) {
-      setTransactions(transactions.filter((tx) => tx.id !== id));
-    }
-  };
-
-  const sortedTransactions = [...transactions].sort(
-    (a, b) => new Date(b.date) - new Date(a.date)
-  );
-
-  // Helper: resolve category name
-  const getCategoryName = (id) => {
-    const cat = categories.find((c) => c.id === id);
-    return cat ? cat.name : "Unknown";
-  };
-
   return (
     <div className="transactions-page">
       <h2>{editing ? "Edit Transaction" : "Add Transaction"}</h2>
@@ -90,10 +68,12 @@ export default function TransactionsPage() {
 
       <h2>Transactions</h2>
       <TransactionList
-        transactions={sortedTransactions}
+        transactions={transactions}
         onEdit={handleEdit}
-        onDelete={handleDelete}
-        getCategoryName={getCategoryName}
+        onDelete={deleteTransaction}
+        getCategoryName={(id) =>
+          categories.find((c) => c.id === id)?.name || "Unknown"
+        }
       />
     </div>
   );

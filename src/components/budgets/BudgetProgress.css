@@ -1,0 +1,16 @@
+.budget-progress {
+  margin-bottom: 2rem;
+}
+
+.progress-bar {
+  background: var(--surface-raised);
+  border-radius: var(--radius-md);
+  height: 12px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  background: var(--accent);
+  height: 100%;
+  transition: width 0.3s ease;
+}
