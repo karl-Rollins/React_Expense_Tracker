@@ -15,9 +15,15 @@
   padding: 1rem;
 }
 
-.card.income { border-left: 4px solid var(--accent); }
-.card.expenses { border-left: 4px solid var(--neg); }
-.card.balance { border-left: 4px solid var(--warn); }
+.card.income {
+  border-left: 4px solid var(--accent);
+}
+.card.expenses {
+  border-left: 4px solid var(--neg);
+}
+.card.balance {
+  border-left: 4px solid var(--warn);
+}
 
 .budget-progress {
   margin-bottom: 2rem;
@@ -47,5 +53,9 @@
   border-bottom: 1px solid var(--border);
 }
 
-.recent-transactions .pos { color: var(--accent); }
-.recent-transactions .neg { color: var(--neg); }
+.recent-transactions .pos {
+  color: var(--accent);
+}
+.recent-transactions .neg {
+  color: var(--neg);
+}

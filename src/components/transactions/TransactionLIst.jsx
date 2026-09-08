@@ -1,7 +1,7 @@
 import TransactionItem from "./TransactionItem";
 import "./TransactionList.css";
 
-export default function TransactionList({ transactions, onEdit, onDelete }) {
+export default function TransactionList({ transactions, onEdit, onDelete, getCategoryName }) {
   if (transactions.length === 0) {
     return <p className="empty">No transactions yet</p>;
   }
@@ -9,7 +9,13 @@ export default function TransactionList({ transactions, onEdit, onDelete }) {
   return (
     <ul className="transaction-list">
       {transactions.map((tx) => (
-        <TransactionItem key={tx.id} tx={tx} onEdit={onEdit} onDelete={onDelete} />
+        <TransactionItem
+          key={tx.id}
+          tx={tx}
+          onEdit={onEdit}
+          onDelete={onDelete}
+          getCategoryName={getCategoryName}   // ✅ pass it down
+        />
       ))}
     </ul>
   );

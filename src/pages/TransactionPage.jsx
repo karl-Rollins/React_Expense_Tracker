@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import TransactionForm from "../components/transactions/TransactionForm";
 import TransactionList from "../components/transactions/TransactionLIst";
+import { categories } from "../data/categories";
 
 export default function TransactionsPage() {
   const [transactions, setTransactions] = useLocalStorage("transactions", []);
@@ -9,7 +10,7 @@ export default function TransactionsPage() {
   const [form, setForm] = useState({
     type: "expense",
     amount: "",
-    category: "",
+    categoryId: "",
     date: new Date().toISOString().split("T")[0],
     note: "",
   });
@@ -20,7 +21,7 @@ export default function TransactionsPage() {
     if (!form.amount || isNaN(form.amount) || Number(form.amount) <= 0) {
       errs.amount = "Amount must be a number greater than 0";
     }
-    if (!form.category) errs.category = "Category is required";
+    if (!form.categoryId) errs.category = "Category is required";
     if (!form.date) errs.date = "Date is required";
     setErrors(errs);
     return Object.keys(errs).length === 0;
@@ -38,9 +39,7 @@ export default function TransactionsPage() {
     };
 
     if (editing) {
-      setTransactions(
-        transactions.map((tx) => (tx.id === editing.id ? newTx : tx)),
-      );
+      setTransactions(transactions.map((tx) => (tx.id === editing.id ? newTx : tx)));
       setEditing(null);
     } else {
       setTransactions([...transactions, newTx]);
@@ -49,7 +48,7 @@ export default function TransactionsPage() {
     setForm({
       type: "expense",
       amount: "",
-      category: "",
+      categoryId: "",
       date: new Date().toISOString().split("T")[0],
       note: "",
     });
@@ -68,8 +67,14 @@ export default function TransactionsPage() {
   };
 
   const sortedTransactions = [...transactions].sort(
-    (a, b) => new Date(b.date) - new Date(a.date),
+    (a, b) => new Date(b.date) - new Date(a.date)
   );
+
+  // Helper: resolve category name
+  const getCategoryName = (id) => {
+    const cat = categories.find((c) => c.id === id);
+    return cat ? cat.name : "Unknown";
+  };
 
   return (
     <div className="transactions-page">
@@ -80,6 +85,7 @@ export default function TransactionsPage() {
         editing={editing}
         onChange={setForm}
         onSubmit={handleSubmit}
+        categories={categories}
       />
 
       <h2>Transactions</h2>
@@ -87,6 +93,7 @@ export default function TransactionsPage() {
         transactions={sortedTransactions}
         onEdit={handleEdit}
         onDelete={handleDelete}
+        getCategoryName={getCategoryName}
       />
     </div>
   );

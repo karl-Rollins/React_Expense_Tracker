@@ -1,7 +1,6 @@
 import "./TransactionForm.css";
-import { categories } from "../../data/categories";
 
-export default function TransactionForm({ form, errors, editing, onChange, onSubmit }) {
+export default function TransactionForm({ form, errors, editing, onChange, onSubmit, categories }) {
   return (
     <form onSubmit={onSubmit} className="transaction-form">
       <label>

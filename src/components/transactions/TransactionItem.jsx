@@ -1,10 +1,10 @@
 import { formatCurrency } from "../../utils/formatCurrency";
 import "./TransactionItem.css";
 
-export default function TransactionItem({ tx, onEdit, onDelete }) {
+export default function TransactionItem({ tx, onEdit, onDelete, getCategoryName }) {
   return (
     <li className="transaction-item">
-      <span>{tx.category}</span>
+      <span>{getCategoryName(tx.categoryId)}</span>
       <span className={tx.type === "income" ? "pos" : "neg"}>
         {tx.type === "income" ? "+" : "-"}
         {formatCurrency(tx.amount)}
