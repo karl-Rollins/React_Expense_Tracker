@@ -1,0 +1,8 @@
+.budget-list {
+  list-style: none;
+  padding: 0;
+}
+.empty {
+  color: var(--text-muted);
+  font-style: italic;
+}

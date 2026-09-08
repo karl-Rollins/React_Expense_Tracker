@@ -7,10 +7,11 @@ import BudgetProgress from "../components/budgets/BudgetProgress";
 import CategoryChart from "../components/dashboard/CategoryChart";
 import TrendChart from "../components/dashboard/TrendChart";
 import RecentTransactions from "../components/dashboard/RecentTransactions";
+import { useBudgetsContext } from "../contexts/BudgetsContext";
 
 export default function DashboardPage({ selectedMonth }) {
   const { transactions } = useTransactionsContext();
-  const {budget} = useTransactionsContext(); 
+  const { budget } = useBudgetsContext();
 
   const monthTransactions = selectedMonth
     ? transactions.filter((tx) => {
@@ -22,17 +23,28 @@ export default function DashboardPage({ selectedMonth }) {
       })
     : transactions;
 
-  const income = monthTransactions.filter((tx) => tx.type === "income").reduce((sum, tx) => sum + tx.amount, 0);
-  const expenses = monthTransactions.filter((tx) => tx.type === "expense").reduce((sum, tx) => sum + tx.amount, 0);
+  const income = monthTransactions
+    .filter((tx) => tx.type === "income")
+    .reduce((sum, tx) => sum + tx.amount, 0);
+  const expenses = monthTransactions
+    .filter((tx) => tx.type === "expense")
+    .reduce((sum, tx) => sum + tx.amount, 0);
   const netBalance = income - expenses;
 
   return (
     <div className="dashboard">
-      <SummaryCards income={income} expenses={expenses} netBalance={netBalance} />
+      <SummaryCards
+        income={income}
+        expenses={expenses}
+        netBalance={netBalance}
+      />
       <BudgetProgress expenses={expenses} budget={budget} />
       <CategoryChart categories={categories} transactions={monthTransactions} />
       <TrendChart transactions={monthTransactions} />
-      <RecentTransactions transactions={monthTransactions} categories={categories} />
+      <RecentTransactions
+        transactions={monthTransactions}
+        categories={categories}
+      />
     </div>
   );
 }

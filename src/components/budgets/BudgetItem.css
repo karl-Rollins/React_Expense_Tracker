@@ -1,0 +1,30 @@
+.budget-item {
+  display: grid;
+  grid-template-columns: 1fr auto auto auto;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  border-bottom: 1px solid var(--border);
+  align-items: center;
+}
+
+.progress-bar {
+  background: var(--surface-raised);
+  border-radius: var(--radius-md);
+  height: 12px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  background: var(--accent);
+  height: 100%;
+  transition: width 0.3s ease;
+}
+
+.progress-fill.over {
+  background: var(--neg);
+}
+
+.warning {
+  color: var(--neg);
+  font-weight: bold;
+}

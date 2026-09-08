@@ -6,11 +6,11 @@ import { BudgetsProvider } from "./contexts/BudgetsContext";
 
 function App() {
   return (
-    <BudgetsProvider>
-      <TransactionsProvider>
+    <TransactionsProvider>
+      <BudgetsProvider>
         <RouterProvider router={router} />
-      </TransactionsProvider>
-    </BudgetsProvider>
+      </BudgetsProvider>
+    </TransactionsProvider>
   );
 }
 
