@@ -1,6 +1,7 @@
 import React from "react";
 import { useTransactionsContext } from "../../contexts/TransactionsContext";
 import { formatCurrency } from "../../utils/formatCurrency";
+import { categories } from "../../data/categories";
 import "./BudgetProgress.css";
 
 export default function BudgetProgress({ expenses, budgets, selectedMonth }) {
@@ -20,10 +21,13 @@ export default function BudgetProgress({ expenses, budgets, selectedMonth }) {
         (tx) =>
           tx.categoryId === categoryId &&
           tx.type === "expense" &&
-          tx.date.startsWith(selectedMonth),
+          tx.date.startsWith(selectedMonth)
       )
       .reduce((sum, tx) => sum + tx.amount, 0);
   };
+
+  // Helper: get category details
+  const getCategory = (id) => categories.find((c) => c.id === id);
 
   return (
     <div className="budget-progress">
@@ -46,13 +50,19 @@ export default function BudgetProgress({ expenses, budgets, selectedMonth }) {
           <h4>Category Breakdown</h4>
           <ul className="category-breakdown">
             {monthBudgets.map((b) => {
+              const category = getCategory(b.categoryId);
               const categorySpent = expensesForCategory(b.categoryId);
               const categoryProgress = (categorySpent / b.amount) * 100;
               const categoryOver = categorySpent > b.amount;
 
               return (
                 <li key={b.id} className="category-item">
-                  <span className="category-name">{b.categoryId}</span>
+                  <span
+                    className="category-name"
+                    style={{ color: category?.color }}
+                  >
+                    {category?.name || b.categoryId}
+                  </span>
                   <span className="category-amount">
                     {formatCurrency(categorySpent)} / {formatCurrency(b.amount)}
                   </span>

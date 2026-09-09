@@ -6,3 +6,10 @@
   padding: 1rem;
   border-radius: var(--radius-md);
 }
+
+.error {
+  display: block;
+  color: var(--warn);
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+}
