@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./DashboardPage.css";
 import { useTransactionsContext } from "../contexts/TransactionsContext";
 import { categories } from "../data/categories";
@@ -8,20 +8,19 @@ import CategoryChart from "../components/dashboard/CategoryChart";
 import TrendChart from "../components/dashboard/TrendChart";
 import RecentTransactions from "../components/dashboard/RecentTransactions";
 import { useBudgetsContext } from "../contexts/BudgetsContext";
+import MonthSelector from "../components/dashboard/MonthSelector";
 
-export default function DashboardPage({ selectedMonth }) {
+export default function DashboardPage() {
   const { transactions } = useTransactionsContext();
   const { budget } = useBudgetsContext();
 
-  const monthTransactions = selectedMonth
-    ? transactions.filter((tx) => {
-        const date = new Date(tx.date);
-        return (
-          date.getMonth() === selectedMonth.getMonth() &&
-          date.getFullYear() === selectedMonth.getFullYear()
-        );
-      })
-    : transactions;
+  const [selectedMonth, setSelectedMonth] = useState(
+    new Date().toISOString().slice(0, 7),
+  );
+
+  const monthTransactions = transactions.filter((tx) =>
+    tx.date.startsWith(selectedMonth),
+  );
 
   const income = monthTransactions
     .filter((tx) => tx.type === "income")
@@ -29,10 +28,15 @@ export default function DashboardPage({ selectedMonth }) {
   const expenses = monthTransactions
     .filter((tx) => tx.type === "expense")
     .reduce((sum, tx) => sum + tx.amount, 0);
+
   const netBalance = income - expenses;
 
   return (
     <div className="dashboard">
+      <MonthSelector
+        selectedMonth={selectedMonth}
+        onChange={setSelectedMonth}
+      />
       <SummaryCards
         income={income}
         expenses={expenses}

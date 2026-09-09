@@ -1,17 +1,29 @@
-import BudgetItem from "./BudgetItem";
+import BudgetCard from "./BudgetCard";
 import "./BudgetList.css";
 
-export default function BudgetList({ budgets, categories, selectedMonth, onEdit, onDelete }) {
-  const monthBudgets = budgets.filter((b) => b.month === selectedMonth?.toISOString().slice(0, 7));
+const normalizeMonth = (month) => {
+  if (!month) return null;
+  return month instanceof Date ? month.toISOString().slice(0, 7) : month;
+};
+
+export default function BudgetList({
+  budgets,
+  categories,
+  selectedMonth,
+  onEdit,
+  onDelete,
+}) {
+  const monthKey = normalizeMonth(selectedMonth);
+  const monthBudgets = budgets.filter((b) => b.month === monthKey);
 
   if (monthBudgets.length === 0) {
     return <p className="empty">No budgets set for this month</p>;
   }
 
   return (
-    <ul className="budget-list">
+    <div className="budget-list">
       {monthBudgets.map((b) => (
-        <BudgetItem
+        <BudgetCard
           key={b.id}
           budget={b}
           category={categories.find((c) => c.id === b.categoryId)}
@@ -19,6 +31,6 @@ export default function BudgetList({ budgets, categories, selectedMonth, onEdit,
           onDelete={() => onDelete(b.id)}
         />
       ))}
-    </ul>
+    </div>
   );
 }

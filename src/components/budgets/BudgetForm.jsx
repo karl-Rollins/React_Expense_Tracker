@@ -1,15 +1,31 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./BudgetForm.css";
 
-export default function BudgetForm({ categories, onSubmit, editing, setEditing }) {
-  const [form, setForm] = useState(
-    editing || { categoryId: "", amount: "", month: new Date().toISOString().slice(0, 7) }
-  );
+export default function BudgetForm({
+  categories,
+  onSubmit,
+  editing,
+  setEditing,
+}) {
+  const [form, setForm] = useState({
+    categoryId: "",
+    amount: "",
+    month: new Date().toISOString().slice(0, 7),
+  });
+
+  useEffect(() => {
+    if (editing) setForm(editing);
+  }, [editing]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     onSubmit({ ...form, amount: Number(form.amount) });
-    setForm({ categoryId: "", amount: "", month: new Date().toISOString().slice(0, 7) });
+    setForm({
+      categoryId: "",
+      amount: "",
+      month: new Date().toISOString().slice(0, 7),
+    });
+    setEditing(null);
   };
 
   return (
@@ -22,7 +38,9 @@ export default function BudgetForm({ categories, onSubmit, editing, setEditing }
         >
           <option value="">Select category</option>
           {categories.map((c) => (
-            <option key={c.id} value={c.id}>{c.name}</option>
+            <option key={c.id} value={c.id}>
+              {c.name}
+            </option>
           ))}
         </select>
       </label>

@@ -1,8 +1,6 @@
 .budget-list {
-  list-style: none;
-  padding: 0;
-}
-.empty {
-  color: var(--text-muted);
-  font-style: italic;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
 }

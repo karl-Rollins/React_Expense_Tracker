@@ -6,3 +6,12 @@ export function formatDate(isoString) {
     day: "numeric",
   });
 }
+
+// For budgets (month only)
+export function formatMonth(ymString) {
+  const [year, month] = ymString.split("-");
+  return new Date(year, month - 1).toLocaleDateString(undefined, {
+    year: "numeric",
+    month: "long",
+  });
+}
