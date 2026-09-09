@@ -1,0 +1,32 @@
+.settings-page {
+  padding: 2rem;
+}
+
+.settings-page h2 {
+  margin-bottom: 1rem;
+}
+
+.settings-page section {
+  margin-bottom: 2rem;
+}
+
+.settings-page select,
+.settings-page button {
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+}
+
+.category-list {
+  list-style: none;
+  padding: 0;
+}
+
+.category-list li {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}

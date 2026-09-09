@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap");
 
 :root {
-  /* color */
+  /* Dark mode (default) */
   --bg: #0f1413;
   --surface: #161f1c;
   --surface-raised: #1d2925;
@@ -22,6 +22,20 @@
   --sidebar-width: 220px;
   --radius-md: 8px;
   --radius-lg: 12px;
+}
+
+/* Light mode overrides */
+[data-theme="light"] {
+  --bg: #fdfdfd;
+  --surface: #f5f5f5;
+  --surface-raised: #ffffff;
+  --border: #dddddd;
+  --text: #222222;
+  --text-muted: #666666;
+  --accent: #3e7a5d; /* keep your green accent */
+  --accent-dim: #a3d9c5;
+  --warn: #d97c2f;
+  --neg: #c94f4f;
 }
 
 * {
