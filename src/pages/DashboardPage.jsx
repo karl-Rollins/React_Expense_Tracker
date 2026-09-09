@@ -12,7 +12,7 @@ import MonthSelector from "../components/dashboard/MonthSelector";
 
 export default function DashboardPage() {
   const { transactions } = useTransactionsContext();
-  const { budget } = useBudgetsContext();
+  const { budgets } = useBudgetsContext();
 
   const [selectedMonth, setSelectedMonth] = useState(
     new Date().toISOString().slice(0, 7),
@@ -42,7 +42,7 @@ export default function DashboardPage() {
         expenses={expenses}
         netBalance={netBalance}
       />
-      <BudgetProgress expenses={expenses} budget={budget} />
+      <BudgetProgress expenses={expenses} budgets={budgets} selectedMonth={selectedMonth} />
       <CategoryChart categories={categories} transactions={monthTransactions} />
       <TrendChart transactions={monthTransactions} />
       <RecentTransactions
