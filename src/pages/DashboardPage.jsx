@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import "./DashboardPage.css";
 import { useTransactionsContext } from "../contexts/TransactionsContext";
 import { categories } from "../data/categories";
@@ -18,18 +18,23 @@ export default function DashboardPage() {
     new Date().toISOString().slice(0, 7),
   );
 
-  const monthTransactions = transactions.filter((tx) =>
-    tx.date.startsWith(selectedMonth),
-  );
+  const monthTransactions = useMemo(() => {
+    return transactions.filter((tx) => tx.date.startsWith(selectedMonth));
+  }, [transactions, selectedMonth]);
 
-  const income = monthTransactions
-    .filter((tx) => tx.type === "income")
-    .reduce((sum, tx) => sum + tx.amount, 0);
-  const expenses = monthTransactions
-    .filter((tx) => tx.type === "expense")
-    .reduce((sum, tx) => sum + tx.amount, 0);
+  const income = useMemo(() => {
+    return monthTransactions
+      .filter((tx) => tx.type === "income")
+      .reduce((sum, tx) => sum + tx.amount, 0);
+  }, [monthTransactions]);
 
-  const netBalance = income - expenses;
+  const expenses = useMemo(() => {
+    return monthTransactions
+      .filter((tx) => tx.type === "expense")
+      .reduce((sum, tx) => sum + tx.amount, 0);
+  }, [monthTransactions]);
+
+  const netBalance = useMemo(() => income - expenses, [income, expenses]);
 
   return (
     <div className="dashboard">
@@ -42,7 +47,11 @@ export default function DashboardPage() {
         expenses={expenses}
         netBalance={netBalance}
       />
-      <BudgetProgress expenses={expenses} budgets={budgets} selectedMonth={selectedMonth} />
+      <BudgetProgress
+        expenses={expenses}
+        budgets={budgets}
+        selectedMonth={selectedMonth}
+      />
       <CategoryChart categories={categories} transactions={monthTransactions} />
       <TrendChart transactions={monthTransactions} />
       <RecentTransactions
