@@ -39,6 +39,23 @@ export default function MainLayout() {
       <main className="content">
         <Outlet />
       </main>
+
+      {/* Mobile bottom nav */}
+      <nav className="mobile-nav">
+        {NAV_ITEMS.map(({ to, label, icon: Icon, end }) => (
+          <NavLink
+            key={to}
+            to={to}
+            end={end}
+            className={({ isActive }) =>
+              `mobile-link${isActive ? " active" : ""}`
+            }
+          >
+            <Icon size={20} />
+            <span>{label}</span>
+          </NavLink>
+        ))}
+      </nav>
     </div>
   );
 }

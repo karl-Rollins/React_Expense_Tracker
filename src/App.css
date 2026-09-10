@@ -32,7 +32,7 @@
   --border: #dddddd;
   --text: #222222;
   --text-muted: #666666;
-  --accent: #3e7a5d; 
+  --accent: #3e7a5d;
   --accent-dim: #a3d9c5;
   --warn: #d97c2f;
   --neg: #c94f4f;
@@ -50,4 +50,38 @@ body,
   background: var(--bg);
   color: var(--text);
   font-family: var(--font-body);
+}
+
+@media (max-width: 768px) {
+  .dashboard-grid,
+  .dashboard-charts,
+  .transactions-grid,
+  .budget-grid {
+    grid-template-columns: 1fr;
+  }
+  .card {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  h1,
+  h2,
+  h3 {
+    font-size: 1rem;
+  }
+  .card {
+    padding: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .transaction-item,
+  .budget-card {
+    font-size: 0.9rem;
+  }
+  .transaction-list,
+  .budget-list {
+    overflow-x: auto;
+  }
 }

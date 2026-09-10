@@ -12,11 +12,17 @@
   background: var(--surface-raised);
   border-radius: var(--radius-lg);
   padding: 1rem;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
 .card h2 {
   margin-bottom: 1rem;
   font-family: var(--font-display);
   font-size: 1.2rem;
+}
+
+@media (max-width: 768px) {
+  .transactions-grid {
+    grid-template-columns: 1fr;
+  }
 }

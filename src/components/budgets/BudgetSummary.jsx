@@ -2,12 +2,9 @@ import React from "react";
 import { formatCurrency } from "../../utils/formatCurrency";
 import "./BudgetSummary.css";
 
-export default function BudgetSummary({
-  totalBudgeted,
-  totalSpent,
-  selectedMonth,
-}) {
+export default function BudgetSummary({ totalBudgeted, totalSpent, selectedMonth }) {
   const net = totalBudgeted - totalSpent;
+  const percentSpent = totalBudgeted > 0 ? (totalSpent / totalBudgeted) * 100 : 0;
 
   return (
     <div className="budget-summary card">
@@ -27,6 +24,16 @@ export default function BudgetSummary({
             {formatCurrency(net)}
           </p>
         </div>
+      </div>
+
+      <div className="summary-progress">
+        <div className="progress-bar">
+          <div
+            className={`progress-fill ${percentSpent > 100 ? "over" : ""}`}
+            style={{ width: `${Math.min(percentSpent, 100)}%` }}
+          />
+        </div>
+        <small>{Math.round(percentSpent)}% of budget spent</small>
       </div>
     </div>
   );

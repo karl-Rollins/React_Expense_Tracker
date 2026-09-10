@@ -4,16 +4,19 @@ import router from "./routes";
 import { TransactionsProvider } from "./contexts/TransactionsContext";
 import { BudgetsProvider } from "./contexts/BudgetsContext";
 import { ThemeProvider } from "./contexts/ThemeContext";
+import { CurrencyProvider } from "./contexts/CurrencyContext";
 
 function App() {
   return (
-    <ThemeProvider>
-      <TransactionsProvider>
-        <BudgetsProvider>
-          <RouterProvider router={router} />
-        </BudgetsProvider>
-      </TransactionsProvider>
-    </ThemeProvider>
+    <CurrencyProvider>
+      <ThemeProvider>
+        <TransactionsProvider>
+          <BudgetsProvider>
+            <RouterProvider router={router} />
+          </BudgetsProvider>
+        </TransactionsProvider>
+      </ThemeProvider>
+    </CurrencyProvider>
   );
 }
 

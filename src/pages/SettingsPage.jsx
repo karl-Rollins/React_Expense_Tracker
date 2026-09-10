@@ -4,11 +4,13 @@ import { useThemeContext } from "../contexts/ThemeContext";
 import { useBudgetsContext } from "../contexts/BudgetsContext";
 import { useTransactionsContext } from "../contexts/TransactionsContext";
 import { categories } from "../data/categories";
+import { useCurrencyContext } from "../contexts/CurrencyContext";
 
 export default function SettingsPage() {
   const { theme, setTheme } = useThemeContext();
   const { budgets, deleteBudget } = useBudgetsContext();
   const { transactions, deleteTransaction } = useTransactionsContext();
+  const { currency, setCurrency } = useCurrencyContext();
 
   const [localCategories, setLocalCategories] = useState(categories);
 
@@ -59,6 +61,19 @@ export default function SettingsPage() {
           <h3>Data Management</h3>
           <button onClick={clearBudgets}>Clear Budgets</button>
           <button onClick={clearTransactions}>Clear Transactions</button>
+        </section>
+
+        <section className="card">
+          <h3>Currency</h3>
+          <select
+            value={currency}
+            onChange={(e) => setCurrency(e.target.value)}
+          >
+            <option value="USD">USD  US Dollar</option>
+            <option value="EUR">EUR  Euro</option>
+            <option value="GBP">GBP  British Pound</option>
+            <option value="XAF">XAF  Central African CFA Franc</option>
+          </select>
         </section>
 
         <section className="card">

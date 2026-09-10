@@ -12,7 +12,7 @@
   background: var(--surface-raised);
   border-radius: var(--radius-lg);
   padding: 1rem;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
 .card h2 {
@@ -26,4 +26,10 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+  .budget-grid {
+    grid-template-columns: 1fr;
+  }
 }
