@@ -6,12 +6,14 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
 }
 
 .budget-card header {
   display: flex;
   justify-content: space-between;
   margin-bottom: 0.5rem;
+  font-family: var(--font-display);
 }
 
 .budget-card .amount {
@@ -20,16 +22,17 @@
 }
 
 .progress-bar {
-  background: var(--surface);
+  background: var(--border);
   border-radius: var(--radius-md);
   height: 8px;
   margin-bottom: 0.5rem;
+  overflow: hidden;
 }
 
 .progress-fill {
   background: var(--accent);
   height: 100%;
-  border-radius: var(--radius-md);
+  transition: width 0.3s ease;
 }
 
 .progress-fill.over {

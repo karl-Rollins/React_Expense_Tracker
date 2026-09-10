@@ -21,33 +21,38 @@ export default function BudgetsPage() {
     } else {
       addBudget(budget);
     }
-
-    console.log(selectedMonth, budget.month);
   };
 
   return (
     <div className="budget-page">
-      <h2>{editing ? "Edit Budget" : "Add Budget"}</h2>
-      <BudgetForm
-        categories={categories}
-        onSubmit={handleSubmit}
-        editing={editing}
-        setEditing={setEditing}
-      />
+      <div className="budget-grid">
+        <div className="card">
+          <h2>{editing ? "Edit Budget" : "Add Budget"}</h2>
+          <BudgetForm
+            categories={categories}
+            onSubmit={handleSubmit}
+            editing={editing}
+            setEditing={setEditing}
+          />
+        </div>
 
-      <MonthSelector
-        selectedMonth={selectedMonth}
-        onChange={setSelectedMonth}
-      />
-
-      <h2>Budgets</h2>
-      <BudgetList
-        budgets={budgets}
-        categories={categories}
-        selectedMonth={selectedMonth}
-        onEdit={setEditing}
-        onDelete={deleteBudget}
-      />
+        <div className="card">
+          <div className="budget-header">
+            <h2>Budgets</h2>
+            <MonthSelector
+              selectedMonth={selectedMonth}
+              onChange={setSelectedMonth}
+            />
+          </div>
+          <BudgetList
+            budgets={budgets}
+            categories={categories}
+            selectedMonth={selectedMonth}
+            onEdit={setEditing}
+            onDelete={deleteBudget}
+          />
+        </div>
+      </div>
     </div>
   );
 }
