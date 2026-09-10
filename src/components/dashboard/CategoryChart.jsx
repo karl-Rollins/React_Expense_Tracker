@@ -15,6 +15,7 @@ export default function CategoryChart({ categories, transactions }) {
       <ul>
         {categoryTotals.map((cat) => (
           <li key={cat.id} style={{ color: cat.color }}>
+            <cat.icon size={16} style={{ marginRight: "6px" }} />
             {cat.name}: {formatCurrency(cat.total)}
           </li>
         ))}

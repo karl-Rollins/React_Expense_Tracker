@@ -1,3 +1,4 @@
+import EmptyState from "../common/EmptyState";
 import BudgetCard from "./BudgetCard";
 import "./BudgetList.css";
 
@@ -17,7 +18,7 @@ export default function BudgetList({
   const monthBudgets = budgets.filter((b) => b.month === monthKey);
 
   if (monthBudgets.length === 0) {
-    return <p className="empty">No budgets set for this month</p>;
+    return <EmptyState message="No budgets set for this month" />;
   }
 
   return (

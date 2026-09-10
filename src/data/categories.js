@@ -1,30 +1,32 @@
+import { Utensils, Car, DollarSign, ShoppingBag } from "lucide-react";
+
 export const categories = [
   {
     id: "food",
     name: "Food",
     type: "expense",
     color: "#FF6B6B",
-    icon: "Utensils",
+    icon: Utensils,
   },
   {
     id: "transport",
     name: "Transport",
     type: "expense",
     color: "#4ECDC4",
-    icon: "Car",
+    icon: Car,
   },
   {
     id: "salary",
     name: "Salary",
     type: "income",
     color: "#1A535C",
-    icon: "DollarSign",
+    icon: DollarSign,
   },
   {
     id: "shopping",
     name: "Shopping",
     type: "expense",
     color: "#FFE66D",
-    icon: "ShoppingBag",
+    icon: ShoppingBag,
   },
 ];

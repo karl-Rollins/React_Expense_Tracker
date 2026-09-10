@@ -1,0 +1,11 @@
+.empty-state {
+  background: var(--surface);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  text-align: center;
+  color: var(--text-muted);
+  font-family: var(--font-body);
+  font-style: italic;
+  margin: 20px 0;
+}

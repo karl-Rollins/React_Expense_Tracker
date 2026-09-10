@@ -9,6 +9,8 @@ import TrendChart from "../components/dashboard/TrendChart";
 import RecentTransactions from "../components/dashboard/RecentTransactions";
 import { useBudgetsContext } from "../contexts/BudgetsContext";
 import MonthSelector from "../components/dashboard/MonthSelector";
+import TransactionFilters from "../components/transactions/TransactionFilters";
+import useFilters from "../hooks/useFilters";
 
 export default function DashboardPage() {
   const { transactions } = useTransactionsContext();
@@ -21,6 +23,10 @@ export default function DashboardPage() {
   const monthTransactions = useMemo(() => {
     return transactions.filter((tx) => tx.date.startsWith(selectedMonth));
   }, [transactions, selectedMonth]);
+
+  // Apply additional filters (type, category, search)
+  const { filters, setFilters, filteredTransactions } =
+    useFilters(monthTransactions);
 
   const income = useMemo(() => {
     return monthTransactions
@@ -38,24 +44,41 @@ export default function DashboardPage() {
 
   return (
     <div className="dashboard">
-      <MonthSelector
-        selectedMonth={selectedMonth}
-        onChange={setSelectedMonth}
-      />
-      <SummaryCards
-        income={income}
-        expenses={expenses}
-        netBalance={netBalance}
-      />
-      <BudgetProgress
-        expenses={expenses}
-        budgets={budgets}
-        selectedMonth={selectedMonth}
-      />
-      <CategoryChart categories={categories} transactions={monthTransactions} />
-      <TrendChart transactions={monthTransactions} />
+      <div className="dashboard-header">
+        <MonthSelector
+          selectedMonth={selectedMonth}
+          onChange={setSelectedMonth}
+        />
+        <TransactionFilters
+          filters={filters}
+          setFilters={setFilters}
+          categories={categories}
+        />
+      </div>
+
+      <div className="dashboard-grid">
+        <SummaryCards
+          income={income}
+          expenses={expenses}
+          netBalance={netBalance}
+        />
+        <BudgetProgress
+          expenses={expenses}
+          budgets={budgets}
+          selectedMonth={selectedMonth}
+        />
+      </div>
+
+      <div className="dashboard-charts">
+        <CategoryChart
+          categories={categories}
+          transactions={filteredTransactions}
+        />
+        <TrendChart transactions={filteredTransactions} />
+      </div>
+
       <RecentTransactions
-        transactions={monthTransactions}
+        transactions={filteredTransactions}
         categories={categories}
       />
     </div>

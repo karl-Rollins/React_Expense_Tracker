@@ -1,9 +1,15 @@
+import EmptyState from "../common/EmptyState";
 import TransactionItem from "./TransactionItem";
 import "./TransactionList.css";
 
-export default function TransactionList({ transactions, onEdit, onDelete, getCategoryName }) {
+export default function TransactionList({
+  transactions,
+  onEdit,
+  onDelete,
+  getCategoryName,
+}) {
   if (transactions.length === 0) {
-    return <p className="empty">No transactions yet</p>;
+    return <EmptyState message="No transactions Yet" />;
   }
 
   return (
@@ -14,7 +20,7 @@ export default function TransactionList({ transactions, onEdit, onDelete, getCat
           tx={tx}
           onEdit={onEdit}
           onDelete={onDelete}
-          getCategoryName={getCategoryName}   // ✅ pass it down
+          getCategoryName={getCategoryName}
         />
       ))}
     </ul>
