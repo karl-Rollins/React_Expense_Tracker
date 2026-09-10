@@ -1,5 +1,16 @@
+import React from "react";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+  CartesianGrid,
+} from "recharts";
 import { formatCurrency } from "../../utils/formatCurrency";
 import { formatDate } from "../../utils/formatDate";
+import EmptyState from "../common/EmptyState";
 import "./TrendChart.css";
 
 export default function TrendChart({ transactions }) {
@@ -10,21 +21,33 @@ export default function TrendChart({ transactions }) {
     dailyTotals[day] += tx.type === "expense" ? tx.amount : -tx.amount;
   });
 
-  const trendData = Object.entries(dailyTotals).map(([date, total]) => ({
-    date,
+  const data = Object.entries(dailyTotals).map(([date, total]) => ({
+    date: formatDate(date),
     total,
   }));
 
+  if (!data.length) {
+    return <EmptyState message="No trend data available." />;
+  }
+
   return (
-    <div className="trend-chart">
+    <div className="chart-card trend-chart">
       <h3>Spending Trend</h3>
-      <ul>
-        {trendData.map((d) => (
-          <li key={d.date}>
-            {formatDate(d.date)}: {formatCurrency(d.total)}
-          </li>
-        ))}
-      </ul>
+      <ResponsiveContainer width="100%" height={300}>
+        <LineChart data={data}>
+          <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
+          <XAxis dataKey="date" />
+          <YAxis tickFormatter={(val) => formatCurrency(val)} />
+          <Tooltip formatter={(val) => formatCurrency(val)} />
+          <Line
+            type="monotone"
+            dataKey="total"
+            stroke="var(--accent)"
+            strokeWidth={2}
+            dot={{ r: 4 }}
+          />
+        </LineChart>
+      </ResponsiveContainer>
     </div>
   );
 }
