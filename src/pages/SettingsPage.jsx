@@ -46,32 +46,36 @@ export default function SettingsPage() {
     <div className="settings-page">
       <h2>Settings</h2>
 
-      <section>
-        <h3>Theme</h3>
-        <select value={theme} onChange={handleThemeChange}>
-          <option value="light">Light</option>
-          <option value="dark">Dark</option>
-        </select>
-      </section>
+      <div className="settings-grid">
+        <section className="card">
+          <h3>Theme</h3>
+          <select value={theme} onChange={handleThemeChange}>
+            <option value="light">Light</option>
+            <option value="dark">Dark</option>
+          </select>
+        </section>
 
-      <section>
-        <h3>Data Management</h3>
-        <button onClick={clearBudgets}>Clear Budgets</button>
-        <button onClick={clearTransactions}>Clear Transactions</button>
-      </section>
+        <section className="card">
+          <h3>Data Management</h3>
+          <button onClick={clearBudgets}>Clear Budgets</button>
+          <button onClick={clearTransactions}>Clear Transactions</button>
+        </section>
 
-      <section>
-        <h3>Manage Categories</h3>
-        <ul className="category-list">
-          {localCategories.map((c) => (
-            <li key={c.id} style={{ color: c.color }}>
-              {c.name} ({c.type})
-              <button onClick={() => deleteCategory(c.id)}>Delete</button>
-            </li>
-          ))}
-        </ul>
-        <button onClick={addCategory}>Add Category</button>
-      </section>
+        <section className="card">
+          <h3>Manage Categories</h3>
+          <ul className="category-list">
+            {localCategories.map((c) => (
+              <li key={c.id}>
+                <span className="category-name" style={{ color: c.color }}>
+                  {c.name} ({c.type})
+                </span>
+                <button onClick={() => deleteCategory(c.id)}>Delete</button>
+              </li>
+            ))}
+          </ul>
+          <button onClick={addCategory}>Add Category</button>
+        </section>
+      </div>
     </div>
   );
 }
