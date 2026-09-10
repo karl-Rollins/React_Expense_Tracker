@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useBudgetsContext } from "../contexts/BudgetsContext";
 import { categories } from "../data/categories";
 import BudgetForm from "../components/budgets/BudgetForm";
 import BudgetList from "../components/budgets/BudgetList";
 import MonthSelector from "../components/dashboard/MonthSelector";
+import BudgetSummary from "../components/budgets/BudgetSummary";
 import "./BudgetPage.css";
 
 export default function BudgetsPage() {
@@ -23,8 +24,29 @@ export default function BudgetsPage() {
     }
   };
 
+  // Calculate summary totals
+  const totalBudgeted = useMemo(
+    () => budgets
+      .filter((b) => b.month === selectedMonth)
+      .reduce((sum, b) => sum + b.amount, 0),
+    [budgets, selectedMonth]
+  );
+
+  const totalSpent = useMemo(
+    () => budgets
+      .filter((b) => b.month === selectedMonth)
+      .reduce((sum, b) => sum + (b.spent || 0), 0),
+    [budgets, selectedMonth]
+  );
+
   return (
     <div className="budget-page">
+      <BudgetSummary
+        totalBudgeted={totalBudgeted}
+        totalSpent={totalSpent}
+        selectedMonth={selectedMonth}
+      />
+
       <div className="budget-grid">
         <div className="card">
           <h2>{editing ? "Edit Budget" : "Add Budget"}</h2>
