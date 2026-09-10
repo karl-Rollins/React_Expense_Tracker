@@ -1,3 +1,4 @@
+import { useCurrencyContext } from "../../contexts/CurrencyContext";
 import { formatCurrency } from "../../utils/formatCurrency";
 import { formatDate } from "../../utils/formatDate";
 import "./RecentTransactions.css";
@@ -10,6 +11,7 @@ export default function RecentTransactions({ transactions, categories }) {
     return cat ? cat.name : "Unknown";
   };
 
+  const { currency, locale } = useCurrencyContext();
   return (
     <div className="recent-transactions">
       <h3>Recent Transactions</h3>
@@ -20,7 +22,7 @@ export default function RecentTransactions({ transactions, categories }) {
             <span>{getCategoryName(tx.categoryId)}</span>
             <span className={tx.type === "income" ? "pos" : "neg"}>
               {tx.type === "income" ? "+" : "-"}
-              {formatCurrency(tx.amount)}
+              {formatCurrency(tx.amount, currency, locale)}
             </span>
             {tx.note && <span className="note">({tx.note})</span>}
           </li>

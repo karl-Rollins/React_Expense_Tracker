@@ -1,13 +1,20 @@
+import { useCurrencyContext } from "../../contexts/CurrencyContext";
 import { formatCurrency } from "../../utils/formatCurrency";
 import "./TransactionItem.css";
 
-export default function TransactionItem({ tx, onEdit, onDelete, getCategoryName }) {
+export default function TransactionItem({
+  tx,
+  onEdit,
+  onDelete,
+  getCategoryName,
+}) {
+  const { currency, locale } = useCurrencyContext();
   return (
     <li className="transaction-item">
       <span>{getCategoryName(tx.categoryId)}</span>
       <span className={tx.type === "income" ? "pos" : "neg"}>
         {tx.type === "income" ? "+" : "-"}
-        {formatCurrency(tx.amount)}
+        {formatCurrency(tx.amount, currency, locale)}
       </span>
       <span>{tx.date}</span>
       <span>{tx.note}</span>

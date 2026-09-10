@@ -1,3 +1,4 @@
+import { useCurrencyContext } from "../../contexts/CurrencyContext";
 import { useTransactionsContext } from "../../contexts/TransactionsContext";
 import { formatCurrency } from "../../utils/formatCurrency";
 import { formatMonth } from "../../utils/formatDate";
@@ -5,6 +6,7 @@ import "./BudgetCard.css";
 
 export default function BudgetCard({ budget, category, onEdit, onDelete }) {
   const { transactions } = useTransactionsContext();
+  const { currency, locale } = useCurrencyContext();
 
   const spent = transactions
     .filter(
@@ -20,11 +22,12 @@ export default function BudgetCard({ budget, category, onEdit, onDelete }) {
     <div className="budget-card">
       <header>
         <h3>{category?.name || "Unknown"}</h3>
-        <span>{formatMonth(budget.month)}</span>
+        <span>{formatMonth(budget.month, currency, locale)}</span>
       </header>
 
       <p className="amount">
-        {formatCurrency(spent)} / {formatCurrency(budget.amount)}
+        {formatCurrency(spent, currency, locale)} /{" "}
+        {formatCurrency(budget.amount, currency, locale)}
       </p>
 
       <div className="progress-bar">

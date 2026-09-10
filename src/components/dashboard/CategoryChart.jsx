@@ -10,8 +10,11 @@ import {
 import { formatCurrency } from "../../utils/formatCurrency";
 import EmptyState from "../common/EmptyState";
 import "./CategoryChart.css";
+import { useCurrencyContext } from "../../contexts/CurrencyContext";
 
 export default function CategoryChart({ categories, transactions }) {
+  const { currency, locale } = useCurrencyContext();
+
   const data = categories
     .map((cat) => {
       const total = transactions
@@ -36,13 +39,15 @@ export default function CategoryChart({ categories, transactions }) {
             cy="50%"
             outerRadius={100}
             dataKey="value"
-            label={({ name, value }) => `${name}: ${formatCurrency(value)}`}
+            label={({ name, value }) =>
+              `${name}: ${formatCurrency(value, currency, locale)}`
+            }
           >
             {data.map((entry, index) => (
               <Cell key={index} fill={entry.color} />
             ))}
           </Pie>
-          <Tooltip formatter={(val) => formatCurrency(val)} />
+          <Tooltip formatter={(val) => formatCurrency(val, currency, locale)} />
           <Legend />
         </PieChart>
       </ResponsiveContainer>

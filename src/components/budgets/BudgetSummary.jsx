@@ -1,10 +1,18 @@
 import React from "react";
 import { formatCurrency } from "../../utils/formatCurrency";
 import "./BudgetSummary.css";
+import { useCurrencyContext } from "../../contexts/CurrencyContext";
 
-export default function BudgetSummary({ totalBudgeted, totalSpent, selectedMonth }) {
+export default function BudgetSummary({
+  totalBudgeted,
+  totalSpent,
+  selectedMonth,
+}) {
   const net = totalBudgeted - totalSpent;
-  const percentSpent = totalBudgeted > 0 ? (totalSpent / totalBudgeted) * 100 : 0;
+  const percentSpent =
+    totalBudgeted > 0 ? (totalSpent / totalBudgeted) * 100 : 0;
+
+  const { currency, locale } = useCurrencyContext();
 
   return (
     <div className="budget-summary card">
@@ -12,16 +20,16 @@ export default function BudgetSummary({ totalBudgeted, totalSpent, selectedMonth
       <div className="summary-grid">
         <div className="summary-item">
           <h4>Budgeted</h4>
-          <p>{formatCurrency(totalBudgeted)}</p>
+          <p>{formatCurrency(totalBudgeted, currency, locale)}</p>
         </div>
         <div className="summary-item">
           <h4>Spent</h4>
-          <p>{formatCurrency(totalSpent)}</p>
+          <p>{formatCurrency(totalSpent, currency, locale)}</p>
         </div>
         <div className="summary-item">
           <h4>Remaining</h4>
           <p style={{ color: net >= 0 ? "var(--accent)" : "var(--neg)" }}>
-            {formatCurrency(net)}
+            {formatCurrency(net, currency, locale)}
           </p>
         </div>
       </div>

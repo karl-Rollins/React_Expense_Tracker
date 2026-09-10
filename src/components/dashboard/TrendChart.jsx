@@ -12,8 +12,11 @@ import { formatCurrency } from "../../utils/formatCurrency";
 import { formatDate } from "../../utils/formatDate";
 import EmptyState from "../common/EmptyState";
 import "./TrendChart.css";
+import { useCurrencyContext } from "../../contexts/CurrencyContext";
 
 export default function TrendChart({ transactions }) {
+  const { currency, locale } = useCurrencyContext();
+
   const dailyTotals = {};
   transactions.forEach((tx) => {
     const day = tx.date;
@@ -37,8 +40,10 @@ export default function TrendChart({ transactions }) {
         <LineChart data={data}>
           <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
           <XAxis dataKey="date" />
-          <YAxis tickFormatter={(val) => formatCurrency(val)} />
-          <Tooltip formatter={(val) => formatCurrency(val)} />
+          <YAxis
+            tickFormatter={(val) => formatCurrency(val, currency, locale)}
+          />
+          <Tooltip formatter={(val) => formatCurrency(val, currency, locale)} />
           <Line
             type="monotone"
             dataKey="total"

@@ -3,6 +3,7 @@ import { useTransactionsContext } from "../../contexts/TransactionsContext";
 import { formatCurrency } from "../../utils/formatCurrency";
 import { categories } from "../../data/categories";
 import "./BudgetProgress.css";
+import { useCurrencyContext } from "../../contexts/CurrencyContext";
 
 export default function BudgetProgress({ expenses, budgets, selectedMonth }) {
   const { transactions } = useTransactionsContext();
@@ -21,13 +22,15 @@ export default function BudgetProgress({ expenses, budgets, selectedMonth }) {
         (tx) =>
           tx.categoryId === categoryId &&
           tx.type === "expense" &&
-          tx.date.startsWith(selectedMonth)
+          tx.date.startsWith(selectedMonth),
       )
       .reduce((sum, tx) => sum + tx.amount, 0);
   };
 
   // Helper: get category details
   const getCategory = (id) => categories.find((c) => c.id === id);
+
+  const { currency, locale } = useCurrencyContext();
 
   return (
     <div className="budget-progress">
@@ -37,7 +40,8 @@ export default function BudgetProgress({ expenses, budgets, selectedMonth }) {
       ) : (
         <>
           <p>
-            {formatCurrency(expenses)} / {formatCurrency(totalBudget)}
+            {formatCurrency(expenses, currency, locale)} /{" "}
+            {formatCurrency(totalBudget, currency, locale)}
           </p>
           <div className="progress-bar">
             <div
@@ -64,7 +68,8 @@ export default function BudgetProgress({ expenses, budgets, selectedMonth }) {
                     {category?.name || b.categoryId}
                   </span>
                   <span className="category-amount">
-                    {formatCurrency(categorySpent)} / {formatCurrency(b.amount)}
+                    {formatCurrency(categorySpent, currency, locale)} /{" "}
+                    {formatCurrency(b.amount, currency, locale)}
                   </span>
                   <div className="progress-bar small">
                     <div
