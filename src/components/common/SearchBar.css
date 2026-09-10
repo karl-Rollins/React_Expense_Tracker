@@ -1,16 +1,10 @@
 .search-bar {
-  background: var(--surface-raised);
+  padding: 0.5rem;
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
+  background: var(--surface);
   color: var(--text);
-  padding: 6px 10px;
-  font-family: var(--font-body);
-  font-size: 0.9rem;
-  width: 200px;
-}
-
-.search-bar::placeholder {
-  color: var(--text-muted);
+  width: 100%;
 }
 
 .search-bar:focus {
