@@ -1,24 +1,26 @@
 .transaction-item {
   display: grid;
-  grid-template-columns: 1fr auto auto 1fr auto auto;
+  grid-template-columns: 1fr 1fr auto auto;
   gap: 0.5rem;
-  padding: 0.5rem;
+  padding: 0.75rem;
   border-bottom: 1px solid var(--border);
   align-items: center;
 }
 
 .transaction-item .pos {
   color: var(--accent);
+  font-weight: 600;
 }
 
 .transaction-item .neg {
   color: var(--neg);
+  font-weight: 600;
 }
 
 .transaction-item button {
   background: none;
   border: none;
-  color: var(--primary);
+  color: var(--accent);
   cursor: pointer;
   font-size: 0.9rem;
 }
