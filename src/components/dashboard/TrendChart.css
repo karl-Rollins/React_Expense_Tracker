@@ -1,0 +1,13 @@
+.trend-chart {
+  margin-bottom: 2rem;
+}
+
+.trend-chart ul {
+  list-style: none;
+  padding: 0;
+}
+
+.trend-chart li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border);
+}

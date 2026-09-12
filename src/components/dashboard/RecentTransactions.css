@@ -1,0 +1,23 @@
+.recent-transactions ul {
+  list-style: none;
+  padding: 0;
+}
+
+.recent-transactions li {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.recent-transactions .pos {
+  color: var(--accent);
+}
+.recent-transactions .neg {
+  color: var(--neg);
+}
+
+.recent-transactions .note {
+  color: var(--text-muted);
+  font-style: italic;
+}

@@ -1,0 +1,17 @@
+.month-selector {
+  margin: 1rem 0;
+}
+
+.month-selector label {
+  font-weight: 500;
+  color: var(--text);
+}
+
+.month-selector input {
+  margin-left: 0.5rem;
+  padding: 0.25rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+}

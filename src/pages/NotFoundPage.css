@@ -1,0 +1,48 @@
+.notfound-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding: 2rem;
+}
+
+.notfound-page .card {
+  background: var(--surface-raised);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  max-width: 400px;
+}
+
+.notfound-page h1 {
+  font-size: 4rem;
+  margin: 0;
+  color: var(--accent);
+  font-family: var(--font-display);
+}
+
+.notfound-page h2 {
+  margin: 0.5rem 0 1rem;
+  font-family: var(--font-display);
+}
+
+.notfound-page p {
+  margin-bottom: 1.5rem;
+  color: var(--text-muted);
+}
+
+.home-link {
+  display: inline-block;
+  padding: 0.75rem 1.25rem;
+  background: var(--accent);
+  color: var(--text);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  font-weight: 600;
+  transition: background 0.2s ease;
+}
+
+.home-link:hover {
+  background: var(--accent-dim);
+}
